@@ -1,86 +1,236 @@
-# Creating Table and Modifying the Table
+# SQL: Creating and Modifying Tables
 
-## 1. Create a Table
+This project demonstrates basic **MySQL commands** for creating, modifying, inserting, updating, deleting, and displaying data in tables.
 
-The `CREATE TABLE` command is used to create a new table in a database.
-
-### Example
+## 1. Show Databases
 
 ```sql
-CREATE TABLE EMPLOYEE (
-  EID INT PRIMARY KEY,
-  ENAME VARCHAR(50) NOT NULL,
-  DEPT VARCHAR(30) DEFAULT 'HR',
-  SALARY DECIMAL(10,2),
-  DOJ DATE,
-  EXP INT CHECK(EXP > 0)
+SHOW DATABASES;
+```
+
+Displays all databases available in the MySQL server.
+
+## 2. Select a Database
+
+```sql
+USE aids;
+```
+
+Selects the `aids` database for performing SQL operations.
+
+## 3. Create a Table
+
+```sql
+CREATE TABLE student (
+    sid INT,
+    sname VARCHAR(20),
+    sdept VARCHAR(20)
 );
 ```
 
-## 2. Insert Records
+Creates a table named `student` with three columns:
+
+* `sid` – Student ID
+* `sname` – Student name
+* `sdept` – Student department
+
+## 4. Add a New Column
 
 ```sql
-INSERT INTO EMPLOYEE
-VALUES (101, 'Ravi', 'IT', 35000, '2025-01-10', 2);
-
-INSERT INTO EMPLOYEE
-VALUES (102, 'Anu', 'HR', 40000, '2024-06-15', 3);
+ALTER TABLE student ADD sage INT;
 ```
 
-## 3. Modify the Table
+Adds a new column `sage` to the `student` table to store the student's age.
 
-The `ALTER TABLE` command is used to modify an existing table.
-
-### Add a Column
+## 5. Rename a Table
 
 ```sql
-ALTER TABLE EMPLOYEE
-ADD PHONE VARCHAR(15);
+RENAME TABLE std TO student;
 ```
 
-### Modify a Column
+Renames the table `std` to `student`.
+
+> **Note:** This command will work only if a table named `std` already exists. If `student` has already been created, this command is unnecessary and will produce an error if `student` already exists.
+
+## 6. Insert Records
 
 ```sql
-ALTER TABLE EMPLOYEE
-MODIFY ENAME VARCHAR(100);
+INSERT INTO student VALUES (101, "ram", "aids", 20);
+INSERT INTO student VALUES (101, "raju", "aiml", 21);
+INSERT INTO student VALUES (103, "ravi", "cse", 20);
+INSERT INTO student VALUES (104, "meera", "ece", 21);
+INSERT INTO student VALUES (105, "reena", "eee", 19);
 ```
 
-### Rename a Column
+Adds student records to the `student` table.
+
+The columns are:
+
+| SID | SNAME | SDEPT | SAGE |
+| --: | ----- | ----- | ---: |
+| 101 | ram   | aids  |   20 |
+| 101 | raju  | aiml  |   21 |
+| 103 | ravi  | cse   |   20 |
+| 104 | meera | ece   |   21 |
+| 105 | reena | eee   |   19 |
+
+## 7. Display Table Structure
 
 ```sql
-ALTER TABLE EMPLOYEE
-RENAME COLUMN PHONE TO MOBILE;
+DESC student;
 ```
 
-### Drop a Column
+Displays the structure of the `student` table, including column names, data types, and other information.
+
+## 8. Update a Record
 
 ```sql
-ALTER TABLE EMPLOYEE
-DROP COLUMN MOBILE;
+UPDATE student
+SET sid = 102
+WHERE sname = "raju";
 ```
 
-## 4. View the Table
+Changes the `sid` of the student named `raju` from `101` to `102`.
+
+## 9. Display All Records
 
 ```sql
-SELECT * FROM EMPLOYEE;
+SELECT * FROM student;
 ```
 
-## 5. Describe the Table
+Displays all records from the `student` table.
+
+## 10. Drop a Table
 
 ```sql
-DESC EMPLOYEE;
+DROP TABLE std;
 ```
 
-## Commands Summary
+Permanently deletes the `std` table and all its data.
 
-| Command         | Purpose                    |
-| --------------- | -------------------------- |
-| `CREATE TABLE`  | Creates a new table        |
-| `INSERT INTO`   | Inserts records            |
-| `ALTER TABLE`   | Modifies an existing table |
-| `ADD`           | Adds a new column          |
-| `MODIFY`        | Changes column definition  |
-| `RENAME COLUMN` | Renames a column           |
-| `DROP COLUMN`   | Removes a column           |
-| `SELECT`        | Displays records           |
-| `DESC`          | Displays table structure   |
+> **Note:** The table `std` must exist for this command to work.
+
+## 11. Display Current Date and Time
+
+```sql
+SELECT NOW();
+```
+
+Displays the current date and time of the MySQL server.
+
+## 12. Drop the `clg` Table
+
+```sql
+DROP TABLE clg;
+```
+
+Deletes the `clg` table permanently along with its data.
+
+## 13. Show All Tables
+
+```sql
+SHOW TABLES;
+```
+
+Displays all tables available in the currently selected database.
+
+## 14. Insert Data into Employee
+
+```sql
+INSERT INTO employee (eid, ename, age)
+VALUES (101, "anil", 50);
+```
+
+Inserts an employee record into the `employee` table.
+
+* `eid` – Employee ID
+* `ename` – Employee name
+* `age` – Employee age
+
+> **Note:** The `employee` table must already exist before executing this command.
+
+## 15. Modify a Column
+
+```sql
+ALTER TABLE student
+MODIFY COLUMN sname VARCHAR(25);
+```
+
+Changes the size of the `sname` column from `VARCHAR(20)` to `VARCHAR(25)`.
+
+## 16. Display Employee Table Structure
+
+```sql
+DESC employee;
+```
+
+Displays the structure of the `employee` table.
+
+## 17. Display Employee Records
+
+```sql
+SELECT * FROM employee;
+```
+
+Displays all records from the `employee` table.
+
+## 18. Update Employee Data
+
+```sql
+UPDATE employee
+SET age = 20
+WHERE eid = 105;
+```
+
+Changes the age of the employee whose ID is `105` to `20`.
+
+> **Note:** This command will affect a record only if employee `105` exists.
+
+## 19. Delete a Record
+
+```sql
+DELETE FROM employee
+WHERE eid = 101;
+```
+
+Deletes the employee record whose ID is `101`.
+
+## 20. Truncate a Table
+
+```sql
+TRUNCATE TABLE employee;
+```
+
+Removes **all records** from the `employee` table while keeping the table structure.
+
+## Important SQL Commands
+
+| SQL Command          | Purpose                         |
+| -------------------- | ------------------------------- |
+| `SHOW DATABASES`     | Displays all databases          |
+| `USE`                | Selects a database              |
+| `CREATE TABLE`       | Creates a new table             |
+| `ALTER TABLE ADD`    | Adds a new column               |
+| `ALTER TABLE MODIFY` | Modifies a column               |
+| `RENAME TABLE`       | Renames a table                 |
+| `INSERT INTO`        | Adds records                    |
+| `SELECT`             | Displays records                |
+| `UPDATE`             | Changes existing records        |
+| `DELETE`             | Deletes selected records        |
+| `TRUNCATE TABLE`     | Removes all records             |
+| `DROP TABLE`         | Deletes the table completely    |
+| `DESC`               | Displays table structure        |
+| `SHOW TABLES`        | Displays tables in the database |
+| `NOW()`              | Displays current date and time  |
+
+## Difference Between DELETE, TRUNCATE and DROP
+
+| Command    | Data                     | Table Structure  |
+| ---------- | ------------------------ | ---------------- |
+| `DELETE`   | Deletes selected records | Remains          |
+| `TRUNCATE` | Deletes all records      | Remains          |
+| `DROP`     | Deletes all records      | Table is deleted |
+
+## Conclusion
+
+This SQL program demonstrates the basic operations required to **create and modify tables**, insert and manipulate records, and manage database tables using MySQL.
